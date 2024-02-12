@@ -1,0 +1,26 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li class="card-list">
+            {% comment %} <a class="item-list" href="/polls/{{ question.id }}/">{{ question.question_text }}</a> {% endcomment %}
+            <a href="{% url 'polls:detail' question.id %}" >{{ question.question_text }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+
+{% comment %} Add a new question {% endcomment %}
+
+<form action="{% url 'polls:new_question' %}" method="post">
+    {% csrf_token %}
+    <legend><h1>New Question: </h1></legend>
+    <input type="text" name="question">
+
+    <input type="submit" value="add">
+</form>

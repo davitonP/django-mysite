@@ -1,0 +1,35 @@
+
+{% comment %} <ul>
+    
+    {% for choice in question.choice_set.all %}
+        <li>{{ choice.choice_text }}</li>
+    {% endfor %}
+        
+</ul> {% endcomment %}
+
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>{{ question.question_text }}</h1></legend>
+        
+        {% if error_message %}
+            <p><strong>{{ error_message }}</strong></p>
+        {% endif %}
+        
+        {% for choice in question.choice_set.all %}
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{choice.id}}">
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+        {% endfor %}
+    </fieldset>
+    <input type="submit" value="Vote">
+</form>
+
+
+{% comment %} form for new choice {% endcomment %}
+<form action="{% url 'polls:new_choice' %}" method="post">
+    {% csrf_token %}
+    <p>Other Option: <input type="text" name="choice"></p>
+    <p hidden><input type="number" name='question_id' value="{{question.id}}"></p>
+    <p><input type="submit" value="save"></p>
+</form>
