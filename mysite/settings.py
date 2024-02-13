@@ -74,12 +74,27 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# conencction to the database with mongodb atlas
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'polls  ',
+        'CLIENT': {
+            'host': 'mongodb+srv://vrdavid96:41229422@cluster0.hslsu55.mongodb.net/?retryWrites=true&w=majority',
+            'username': 'vrdavid96',
+            'password': '41229422',
+            'name': 'polls'
+        }
     }
 }
+
 
 
 # Password validation
